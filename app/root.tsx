@@ -44,14 +44,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-  <>
-    <Navigation
-      isLoggedIn={true}
-      hasNotifications={true}
-      hasMessages={true}
-    />
-    <Outlet />
-  </>);
+    <div className="py-28">
+      <Navigation
+        isLoggedIn={false}
+        hasNotifications={false}
+        hasMessages={false}
+      />
+      <Outlet />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
