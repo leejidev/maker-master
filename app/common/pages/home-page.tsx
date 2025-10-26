@@ -1,6 +1,7 @@
 import { Link, type MetaFunction } from "react-router";
 import { ProductCard } from "~/features/products/components/product-card";
 import { PostCard } from "~/features/community/components/post-card";
+import { IdeaCard } from "~/features/ideas/components/idea-card";
 import { Button } from "../components/ui/button";
 
 export const meta: MetaFunction = () => {
@@ -49,6 +50,25 @@ export default function HomePage() {
             category="Productivity"
             postedAt="12 hours ago"
           />
+        ))}
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">IdeasGPT</h2>
+          <p className="text-xl font-light text-foreground">Find ideas for your next project.</p>
+          <Button variant="link" asChild className="text-lg p-0 text-cyan-500">
+            <Link to="/community">Explore all ideas &rarr;</Link>
+          </Button>
+        </div>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <IdeaCard
+          id="ideaId"
+          title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and tracking of progress using a mobile app to track workouts and progress as well as website to manage the business."
+          viewsCount={123}
+          postedAt="12 hours ago"
+          likesCount={12}
+          claimed={index % 2 === 0}
+        />
         ))}
       </div>
     </div>
