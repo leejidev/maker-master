@@ -31,7 +31,7 @@ export default function HomePage() {
               description="Product Description"
               commentsCount={12}
               viewsCount={102}
-              upvotesCount={25}
+              votesCount={25}
             />
           ))}
       </div>

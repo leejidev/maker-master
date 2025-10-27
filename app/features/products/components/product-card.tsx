@@ -9,7 +9,7 @@ interface ProductCardProps {
   description: string;
   commentsCount: number;
   viewsCount: number;
-  upvotesCount: number;
+  votesCount: number;
 }
 
 export function ProductCard({
@@ -18,10 +18,10 @@ export function ProductCard({
   description,
   commentsCount,
   viewsCount,
-  upvotesCount,
+  votesCount,
 }: ProductCardProps) {
   return (
-    <Link to={`/products/${id}`}>
+    <Link to={`/products/${id}`} className="block">
       <Card className="w-full flex items-center justify-between bg-transparent hover:bg-accent/50">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold leading-none tracking-tight">
@@ -44,7 +44,7 @@ export function ProductCard({
         <CardFooter className="py-0">
           <Button variant="outline" className="flex flex-col h-14">
             <ChevronUpIcon className="size-4 shrink-0" />
-            <span>{upvotesCount}</span>
+            <span>{votesCount}</span>
           </Button>
         </CardFooter>
       </Card>
