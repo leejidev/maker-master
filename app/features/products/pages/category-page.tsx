@@ -1,33 +1,35 @@
-import { type MetaFunction } from "react-router";
+import type { MetaFunction } from "react-router";
 import type { Route } from "./+types/category-page";
+import { Hero } from "~/common/components/hero";
+import { ProductCard } from "../components/product-card";
+import { ProductPagination } from "~/common/components/product-pagination";
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+
+export const meta = ({params}: Route.MetaArgs) => {
   return [
-    { title: `${data.category} | Wemake` },
-    { name: "description", content: `Products in ${data.category} category` },
+    { title: `Developer Tools | wemake` },
+    { name: "description", content: `Browse Developer Tools products` },
   ];
 };
 
-export function loader({ params }: Route.LoaderArgs) {
-  return {
-    category: params.category,
-  };
-}
-
-export default function CategoryPage({ loaderData }: Route.ComponentProps) {
-  const { category } = loaderData;
-
+export default function CategoryPage() {
   return (
-    <div className="px-20 py-10">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 capitalize">{category}</h1>
-        <p className="text-xl text-muted-foreground mb-8">
-          Products in {category} category
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Category products will be rendered here */}
-        </div>
+    <div className="space-y-10">
+      <Hero title={"Developer Tools"} subtitle={`Tools for developers to build products faster`} />
+      <div className="space-y-5 w-full max-w-screen-md mx-auto">
+        {Array.from({ length: 11 }).map((_, index) => (
+          <ProductCard
+            key={`productId-${index}`}
+            id={`productId-${index}`}
+            name="Product Name"
+            description="Product Description"
+            commentsCount={12}
+            viewsCount={12}
+            votesCount={120}
+          />
+        ))}
       </div>
+      <ProductPagination totalPages={10} />
     </div>
   );
 }
