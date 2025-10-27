@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { data, isRouteErrorResponse, Link } from "react-router";
+import { data, isRouteErrorResponse, Link, type MetaFunction } from "react-router";
 import { z } from "zod";
 import type { Route } from "./+types/daily-leaderboard-page";
 import { Hero } from "~/common/components/hero";
@@ -12,6 +12,19 @@ const paramsSchema = z.object({
   month: z.coerce.number(),
   day: z.coerce.number(),
 });
+
+export const meta: MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject({
+    year: Number(params.year),
+    month: Number(params.month),
+    day: Number(params.day),
+  }).setZone("Asia/Seoul").setLocale("ko");
+  return [
+    { title: `Best of week ${date.startOf("week").toLocaleString(
+          DateTime.DATE_SHORT
+        )} - ${date.endOf("week").toLocaleString(DateTime.DATE_SHORT)} | wemake` },
+  ];
+};
 
 export const loader = ({ params }: Route.LoaderArgs) => {
   const { success, data: parsedData } = paramsSchema.safeParse(params);
