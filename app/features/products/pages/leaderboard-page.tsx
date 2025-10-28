@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Leaderboards | Wemake" },
+    { title: "Leaderboards | wemake" },
     { name: "description", content: "Top products ranked by our community" },
   ];
 };

@@ -4,7 +4,7 @@ import { CategoryCard } from "../components/category-card";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Categories | Wemake" },
+    { title: "Categories | wemake" },
     { name: "description", content: "Browse products by category" },
   ];
 };

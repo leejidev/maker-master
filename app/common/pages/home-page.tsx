@@ -8,8 +8,8 @@ import { Button } from "../components/ui/button";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Home | Wemake" },
-    { name: "description", content: "Welcome to Wemake" },
+    { title: "Home | wemake" },
+    { name: "description", content: "Welcome to wemake" },
   ];
 };
 
