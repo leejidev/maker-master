@@ -1,7 +1,18 @@
 import { Link } from "react-router";
-import { Card, CardFooter, CardHeader, CardTitle } from "~/common/components/ui/card";
+import {
+  Card,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/common/components/ui/card";
 import { Button } from "~/common/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "~/common/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/common/components/ui/avatar";
+import { ChevronUpIcon, DotIcon } from "lucide-react";
+import { cn } from "~/lib/utils";
 
 interface PostCardProps {
   id: string;
@@ -10,6 +21,8 @@ interface PostCardProps {
   category: string;
   postedAt: string;
   authorAvatarUrl?: string;
+  expanded?: boolean;
+  votesCount?: number;
 }
 
 export function PostCard({
@@ -19,10 +32,17 @@ export function PostCard({
   category,
   postedAt,
   authorAvatarUrl,
+  expanded = false,
+  votesCount = 0,
 }: PostCardProps) {
   return (
-    <Link to={`/community/${id}`}>
-      <Card className="bg-transparent hover:bg-accent/50 transition-colors">
+    <Link to={`/community/${id}`} className="block">
+      <Card
+        className={cn(
+          "bg-transparent hover:bg-card/50 transition-colors",
+          expanded ? "flex flex-row items-center justify-between" : ""
+        )}
+      >
         <CardHeader className="flex flex-row items-center gap-2">
           <Avatar className="size-14">
             <AvatarFallback>{author.charAt(0)}</AvatarFallback>
@@ -38,11 +58,19 @@ export function PostCard({
             </div>
           </div>
         </CardHeader>
-        <CardFooter className="flex justify-end">
-          <Button variant="link"className="text-lg p-0 text-cyan-500">
-            Reply &rarr;
-          </Button>
-        </CardFooter>
+        {!expanded && (
+          <CardFooter className="flex justify-end">
+            <Button variant="link">Reply &rarr;</Button>
+          </CardFooter>
+        )}
+        {expanded && (
+          <CardFooter className="flex justify-end pb-0">
+            <Button variant="outline" className="flex flex-col h-14">
+              <ChevronUpIcon className="size-4 shrink-0" />
+              <span>{votesCount}</span>
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </Link>
   );
