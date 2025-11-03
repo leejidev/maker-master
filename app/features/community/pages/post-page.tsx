@@ -61,7 +61,7 @@ export default function PostPage() {
                   What is the best productivity tool?
                 </h2>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <span>@nico</span>
+                  <span>@leejidev</span>
                   <DotIcon className="size-5" />
                   <span>12 hours ago</span>
                   <DotIcon className="size-5" />
