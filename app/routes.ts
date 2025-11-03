@@ -85,6 +85,12 @@ export default [
     route("/create", "features/teams/pages/submit-team-page.tsx"),
   ]),
   ...prefix("/my", [
+    layout("features/users/layouts/messages-layout.tsx", [
+      ...prefix("/messages", [
+        index("features/users/pages/messages-page.tsx"),
+        route("/:messageId", "features/users/pages/message-page.tsx"),
+      ]),
+    ]),
     route("/profile", "features/users/pages/my-profile-page.tsx"),
     route("/settings", "features/users/pages/settings-page.tsx"),
     route("/notifications", "features/users/pages/notifications-page.tsx"),
