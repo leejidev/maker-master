@@ -84,4 +84,7 @@ export default [
     route("/:teamId", "features/teams/pages/team-page.tsx"),
     route("/create", "features/teams/pages/submit-team-page.tsx"),
   ]),
+  ...prefix("/my", [
+    route("/profile", "features/users/pages/my-profile-page.tsx"),
+  ]),
 ] satisfies RouteConfig;
