@@ -86,5 +86,6 @@ export default [
   ]),
   ...prefix("/my", [
     route("/profile", "features/users/pages/my-profile-page.tsx"),
+    route("/settings", "features/users/pages/settings-page.tsx"),
   ]),
 ] satisfies RouteConfig;
