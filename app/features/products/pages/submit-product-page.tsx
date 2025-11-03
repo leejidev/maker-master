@@ -1,5 +1,5 @@
 import { Form } from "react-router";
-import type { Route } from "./+types/submit-page";
+import type { Route } from "./+types/submit-product-page";
 import { Hero } from "~/common/components/hero";
 import { Label } from "~/common/components/ui/label";
 import { Input } from "~/common/components/ui/input";
@@ -15,7 +15,7 @@ export const meta: Route.MetaFunction = () => {
   ];
 };
 
-export default function SubmitPage() {
+export default function SubmitProductPage() {
   const [icon, setIcon] = useState<string | null>(null);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
