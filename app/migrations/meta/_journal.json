@@ -43,6 +43,13 @@
       "when": 1762526464788,
       "tag": "0005_normal_gorgon",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1762526825099,
+      "tag": "0006_closed_mindworm",
+      "breakpoints": true
     }
   ]
 }
