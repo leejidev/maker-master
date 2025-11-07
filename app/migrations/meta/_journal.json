@@ -15,6 +15,13 @@
       "when": 1762433803988,
       "tag": "0001_sharp_eternity",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762525236148,
+      "tag": "0002_complete_firestar",
+      "breakpoints": true
     }
   ]
 }
