@@ -64,6 +64,13 @@
       "when": 1762599023432,
       "tag": "0008_magical_kid_colt",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1762612223630,
+      "tag": "0009_nostalgic_sage",
+      "breakpoints": true
     }
   ]
 }
