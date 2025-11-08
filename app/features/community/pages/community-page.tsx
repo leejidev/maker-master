@@ -1,6 +1,6 @@
 import { Hero } from "~/common/components/hero";
 import type { Route } from "./+types/community-page";
-import { Await, Form, Link, useSearchParams } from "react-router";
+import { Form, Link, useSearchParams } from "react-router";
 import { Button } from "~/common/components/ui/button";
 import {
   DropdownMenu,
@@ -13,16 +13,24 @@ import { PERIOD_OPTIONS, SORT_OPTIONS } from "../constants";
 import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
 import { getPosts, getTopics } from "../queries";
-import { Suspense } from "react";
 
 export const meta: Route.MetaFunction = () => {
   return [{ title: "Community | wemake" }];
 };
 
+// Server Loader: 서버에서 데이터를 가져오는 함수
 export const loader = async () => {
   // await new Promise(resolve => setTimeout(resolve, 10000));
   const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
   return { topics, posts };
+};
+
+// Client Loader: 브라우저에서 실행되는 함수
+export const clientLoader = async ({
+  serverLoader,
+}: Route.ClientLoaderArgs) => {
+  const serverData = await serverLoader(); // 서버에서 가져온 데이터를 클라이언트에서 사용할 수 있다.
+  // ...
 };
 
 export default function CommunityPage({ loaderData }: Route.ComponentProps) {
@@ -139,4 +147,9 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
       </div>
     </div>
   );
+}
+
+// HydrateFallback: 데이터를 가져오는 동안 화면에 보여줄 내용을 정의
+export function HydrateFallback() {
+  return <div>Loading...</div>;
 }
