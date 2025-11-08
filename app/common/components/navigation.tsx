@@ -11,9 +11,24 @@ import {
 } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
 import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { BarChart3Icon, BellIcon, LogOutIcon, MessageCircleIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+  BarChart3Icon,
+  BellIcon,
+  LogOutIcon,
+  MessageCircleIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
 
 const menus = [
   {
@@ -127,11 +142,13 @@ const menus = [
 ];
 
 export default function Navigation({
-    isLoggedIn, hasNotifications, hasMessages
+  isLoggedIn,
+  hasNotifications,
+  hasMessages,
 }: {
-    isLoggedIn: boolean;
-    hasNotifications: boolean;
-    hasMessages: boolean;
+  isLoggedIn: boolean;
+  hasNotifications: boolean;
+  hasMessages: boolean;
 }) {
   return (
     <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
@@ -142,7 +159,7 @@ export default function Navigation({
         <Separator orientation="vertical" className="h-6 mx-4" />
         <NavigationMenu>
           <NavigationMenuList>
-            {menus.map((menu) => (
+            {menus.map(menu => (
               <NavigationMenuItem key={menu.name}>
                 {menu.items ? (
                   <>
@@ -151,7 +168,7 @@ export default function Navigation({
                     </Link>
                     <NavigationMenuContent>
                       <ul className="grid w-[600px] font-light gap-3 p-4 grid-cols-2">
-                        {menu.items?.map((item) => (
+                        {menu.items?.map(item => (
                           <NavigationMenuItem
                             key={item.name}
                             className={cn([
@@ -189,68 +206,77 @@ export default function Navigation({
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      {isLoggedIn ?
+      {isLoggedIn ? (
         <div className="flex items-center gap-2">
-            <Button size="icon" variant="ghost" asChild className="relative">
-                <Link to="/my/notifications">
-                    <BellIcon className="size-4" />
-                    {hasNotifications && (<div className="absolute top-1.5 right-1.5 bg-red-500 rounded-full size-2" />)}
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="/my/notifications">
+              <BellIcon className="size-4" />
+              {hasNotifications && (
+                <div className="absolute top-1.5 right-1.5 bg-red-500 rounded-full size-2" />
+              )}
+            </Link>
+          </Button>
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="/my/messages">
+              <MessageCircleIcon className="size-4" />
+              {hasMessages && (
+                <div className="absolute top-1.5 right-1.5 bg-red-500 rounded-full size-2" />
+              )}
+            </Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="cursor-pointer">
+                <AvatarImage src="https://github.com/leejidev.png" />
+                <AvatarFallback>N</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel className="flex flex-col space-y-1">
+                <span className="font-medium">John Doe</span>
+                <span className="text-xs text-muted-foreground">
+                  john.doe@example.com
+                </span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="/my/dashboard">
+                    <BarChart3Icon className="size-4 mr-2" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="/my/profile">
+                    <UserIcon className="size-4 mr-2" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link to="/my/settings">
+                    <SettingsIcon className="size-4 mr-2" />
+                    Settings
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link to="/auth/logout">
+                  <LogOutIcon className="size-4 mr-2" />
+                  Logout
                 </Link>
-            </Button>
-            <Button size="icon" variant="ghost" asChild className="relative">
-                <Link to="/my/messages">
-                    <MessageCircleIcon className="size-4" />
-                    {hasMessages && (<div className="absolute top-1.5 right-1.5 bg-red-500 rounded-full size-2" />)}
-                </Link>
-            </Button>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer">
-                        <AvatarImage src="https://github.com/leejidev.png" />
-                        <AvatarFallback>N</AvatarFallback>
-                    </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel className="flex flex-col space-y-1">
-                        <span className="font-medium">John Doe</span>
-                        <span className="text-xs text-muted-foreground">john.doe@example.com</span>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        <DropdownMenuItem asChild className="cursor-pointer">
-                            <Link to="/my/dashboard">
-                            <BarChart3Icon className="size-4 mr-2" />
-                            Dashboard</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild className="cursor-pointer">
-                            <Link to="/my/profile">
-                            <UserIcon className="size-4 mr-2" />
-                            Profile</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild className="cursor-pointer">
-                            <Link to="/my/settings">
-                            <SettingsIcon className="size-4 mr-2" />
-                            Settings</Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                        <Link to="/auth/logout">
-                            <LogOutIcon className="size-4 mr-2" />
-                            Logout
-                        </Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-      : (
+      ) : (
         <div className="flex items-center gap-4">
-            <Button asChild variant="outline">
-                <Link to="/auth/login">Login</Link>
-            </Button>
-            <Button asChild>
-                <Link to="/auth/join">Join</Link>
-            </Button>
+          <Button asChild variant="outline">
+            <Link to="/auth/login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/auth/join">Join</Link>
+          </Button>
         </div>
       )}
     </nav>
