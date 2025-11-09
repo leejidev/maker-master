@@ -6,6 +6,7 @@ import { Hero } from "~/common/components/hero";
 import { Button } from "~/common/components/ui/button";
 import { ProductCard } from "../components/product-card";
 import { ProductPagination } from "~/common/components/product-pagination";
+import { getProductPagesByDateRange, getProductsByDateRange } from "../queries";
 
 const paramsSchema = z.object({
   year: z.coerce.number(),
@@ -16,13 +17,15 @@ export const meta: Route.MetaFunction = ({ params }) => {
   const date = DateTime.fromObject({
     weekYear: Number(params.year),
     weekNumber: Number(params.week),
-  }).setZone("Asia/Seoul").setLocale("ko");
-    return [
+  })
+    .setZone("Asia/Seoul")
+    .setLocale("ko");
+  return [
     { title: `Best of ${date.toLocaleString(DateTime.DATE_MED)} | wemake` },
   ];
 };
 
-export const loader = ({ params }: Route.LoaderArgs) => {
+export const loader = async ({ request, params }: Route.LoaderArgs) => {
   const { success, data: parsedData } = paramsSchema.safeParse(params);
   if (!success) {
     throw data(
@@ -58,7 +61,20 @@ export const loader = ({ params }: Route.LoaderArgs) => {
       { status: 400 }
     );
   }
+  const url = new URL(request.url);
+  const products = await getProductsByDateRange({
+    startDate: date.startOf("week"),
+    endDate: date.endOf("week"),
+    limit: 15,
+    page: Number(url.searchParams.get("page") || 1),
+  });
+  const totalPages = await getProductPagesByDateRange({
+    startDate: date.startOf("week"),
+    endDate: date.endOf("week"),
+  });
   return {
+    products,
+    totalPages,
     ...parsedData,
   };
 };
@@ -76,9 +92,11 @@ export default function WeeklyLeaderboardPage({
   return (
     <div className="space-y-10">
       <Hero
-        title={`Best of week ${urlDate.startOf("week").toLocaleString(
-          DateTime.DATE_SHORT
-        )} - ${urlDate.endOf("week").toLocaleString(DateTime.DATE_SHORT)}`}
+        title={`Best of week ${urlDate
+          .startOf("week")
+          .toLocaleString(
+            DateTime.DATE_SHORT
+          )} - ${urlDate.endOf("week").toLocaleString(DateTime.DATE_SHORT)}`}
       />
       <div className="flex items-center justify-center gap-2">
         <Button variant="secondary" asChild>
@@ -99,19 +117,19 @@ export default function WeeklyLeaderboardPage({
         ) : null}
       </div>
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        {Array.from({ length: 11 }).map((_, index) => (
+        {loaderData.products.map(product => (
           <ProductCard
-            key={`productId-${index}`}
-            id={`productId-${index}`}
-            name="Product Name"
-            description="Product Description"
-            commentsCount={12}
-            viewsCount={12}
-            votesCount={120}
+            key={product.product_id}
+            id={product.product_id.toString()}
+            name={product.name}
+            description={product.description}
+            reviewsCount={product.reviews}
+            viewsCount={product.views}
+            votesCount={product.upvotes}
           />
         ))}
       </div>
-      <ProductPagination totalPages={10} />
+      <ProductPagination totalPages={loaderData.totalPages} />
     </div>
   );
 }

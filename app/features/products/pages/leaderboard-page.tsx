@@ -1,6 +1,6 @@
-import { Button } from "~/common/components/ui/button";
-import type { Route } from "./+types/leaderboard-page";
 import { Hero } from "~/common/components/hero";
+import type { Route } from "./+types/leaderboard-page";
+import { Button } from "~/common/components/ui/button";
 import { ProductCard } from "../components/product-card";
 import { Link } from "react-router";
 import { getProductsByDateRange } from "../queries";
@@ -9,7 +9,7 @@ import { DateTime } from "luxon";
 export const meta: Route.MetaFunction = () => {
   return [
     { title: "Leaderboards | wemake" },
-    { name: "description", content: "Top products ranked by our community" },
+    { name: "description", content: "Top products leaderboard" },
   ];
 };
 
@@ -45,7 +45,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
     <div className="space-y-20">
       <Hero
         title="Leaderboards"
-        subtitle="Top products ranked by our community"
+        subtitle="The most popular products on wemake"
       />
       <div className="grid grid-cols-3 gap-4">
         <div>
@@ -53,11 +53,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             Daily Leaderboard
           </h2>
           <p className="text-xl font-light text-foreground">
-            The most popular products of the day.
+            The most popular products on wemake by day.
           </p>
-          <Button variant="link" asChild className="text-lg p-0 text-cyan-500">
-            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
-          </Button>
         </div>
         {loaderData.dailyProducts.map(product => (
           <ProductCard
@@ -70,11 +67,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             votesCount={product.upvotes}
           />
         ))}
-        <Button
-          variant="link"
-          asChild
-          className="text-lg self-center text-cyan-500"
-        >
+        <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/daily">
             Explore all products &rarr;
           </Link>
@@ -86,11 +79,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             Weekly Leaderboard
           </h2>
           <p className="text-xl font-light text-foreground">
-            The most popular products of the week.
+            The most popular products on wemake by week.
           </p>
-          <Button variant="link" asChild className="text-lg p-0 text-cyan-500">
-            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
-          </Button>
         </div>
         {loaderData.weeklyProducts.map(product => (
           <ProductCard
@@ -103,11 +93,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             votesCount={product.upvotes}
           />
         ))}
-        <Button
-          variant="link"
-          asChild
-          className="text-lg self-center text-cyan-500"
-        >
+        <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/weekly">
             Explore all products &rarr;
           </Link>
@@ -119,11 +105,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             Monthly Leaderboard
           </h2>
           <p className="text-xl font-light text-foreground">
-            The most popular products of the month.
+            The most popular products on wemake by month.
           </p>
-          <Button variant="link" asChild className="text-lg p-0 text-cyan-500">
-            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
-          </Button>
         </div>
         {loaderData.monthlyProducts.map(product => (
           <ProductCard
@@ -136,11 +119,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             votesCount={product.upvotes}
           />
         ))}
-        <Button
-          variant="link"
-          asChild
-          className="text-lg self-center text-cyan-500"
-        >
+        <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/monthly">
             Explore all products &rarr;
           </Link>
@@ -152,11 +131,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             Yearly Leaderboard
           </h2>
           <p className="text-xl font-light text-foreground">
-            The most popular products of the year.
+            The most popular products on wemake by year.
           </p>
-          <Button variant="link" asChild className="text-lg p-0 text-cyan-500">
-            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
-          </Button>
         </div>
         {loaderData.yearlyProducts.map(product => (
           <ProductCard
@@ -169,11 +145,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
             votesCount={product.upvotes}
           />
         ))}
-        <Button
-          variant="link"
-          asChild
-          className="text-lg self-center text-cyan-500"
-        >
+        <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/yearly">
             Explore all products &rarr;
           </Link>
